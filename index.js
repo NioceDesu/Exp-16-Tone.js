@@ -6,36 +6,15 @@ window.onload = () => {
     const DATA = {
         lines: 5,
         columns: 15,
-        speed: 400
+        speed: 200
     };
 
     // 
     document.getElementById('btnC').addEventListener('click', () => {
-        createTimeLine(DATA);
-        // 
-        /*setInterval(() => {
-            console.log('f');
-            synth.triggerAttackRelease('C2', '8n');
-        }, 600);*/
-    });
-    document.getElementById('btnP').addEventListener('click', () => {
-        if (document.getElementById('innerCont')) {
-            console.log('Started!');
-            // 
-            TimeLineLooper(DATA);
+        if (!document.getElementById('innerCont')) {
+            createTimeLine(DATA);
         }
     });
-    document.getElementById('btnS').addEventListener('click', () => {
-        if (document.getElementById('innerCont')) {
-            if (document.getElementsByClassName('tones')) {
-                startIndex = 0;
-                AnimationStart(DATA);
-            }
-        }
-    });
-    // 
-    // 
-    // 
 }
 
 function createTimeLine(DATA) {
@@ -57,11 +36,15 @@ function createTimeLine(DATA) {
     }
     // 
     document.getElementById('cont').appendChild(innerCont);
+    // 
+    TimeLineLooper(DATA);
 }
 // 
+var randomValues = [];
+
 function TimeLineLooper(DATA) {
-    var randomValues = [];
-    const MaxTonesNB = 7;
+    randomValues = [];
+    const MaxTonesNB = 5;
     for (let i = 0; i < DATA.lines; i++) {
         randomValues.push(Math.floor(Math.random() * MaxTonesNB));
     }
@@ -69,9 +52,11 @@ function TimeLineLooper(DATA) {
     makePieces(DATA, randomValues);
 }
 // 
-function makePieces(DATA, randomValues) {
+var indexes = [];
+
+function makePieces(DATA) {
     // Random Indexes
-    var indexes = [];
+    indexes = [];
     for (let i = 0; i < DATA.lines; i++) {
         var lines = [];
         let exist = false;
@@ -94,11 +79,13 @@ function makePieces(DATA, randomValues) {
         indexes.push(lines);
     }
     console.log(indexes);
-    TonesVisualizer(DATA, indexes);
+    TonesVisualizer(DATA);
 }
 // 
-function TonesVisualizer(DATA, indexes) {
+function TonesVisualizer(DATA) {
     // 
+    console.log('OUT');
+    startIndex = 0;
     let linesCount = 0,
         columnsCount = 0;
     var cols = document.getElementsByClassName('columns');
@@ -126,7 +113,8 @@ function TonesVisualizer(DATA, indexes) {
         }
         txtArray.push(txt);
     }
-    console.log(txtArray);
+    // console.log(indexes);
+    timeout(DATA);
 }
 // 
 function clearShape() {
@@ -136,24 +124,9 @@ function clearShape() {
     }
 }
 // 
-function AnimationStart(DATA) {
-    timeout(DATA);
-    /*var cols = document.getElementsByClassName('columns');
-    var lines = document.getElementsByClassName('lines');
-    for (let i = 0; i < DATA.columns; i++) {
-        for (let j = 0; j < DATA.lines; j++) {
-            var lineCols = lines[j].children;
-            // console.log(lineCols[i]);
-            if (lineCols[i].children.length > 0) {
-                console.log([i, j] + "| Filled");
-                synth.triggerAttackRelease('C4', '8n');
-            }
-        }
-    }*/
-}
-// 
-
 function timeout(DATA) {
+    // console.log(indexes);
+
     setTimeout(function () {
         var lines = document.getElementsByClassName('lines');
         for (let j = 0; j < DATA.lines; j++) {
@@ -167,7 +140,10 @@ function timeout(DATA) {
         startIndex++;
         if (startIndex < 15)
             timeout(DATA);
+        else {
+            console.log("IN");
+            makePieces(DATA);
+        }
 
-    }, 200);
-
+    }, DATA.speed);
 }
