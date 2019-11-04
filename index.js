@@ -1,5 +1,6 @@
 var synth = new Tone.Synth().toMaster();
 var startIndex = 0;
+var TrackerIndex = 2;
 const notes = ["A3", "C4", "D4", "E3", "G4"];
 
 window.onload = () => {
@@ -86,6 +87,7 @@ function TonesVisualizer(DATA) {
     // 
     console.log('OUT');
     startIndex = 0;
+    TrackerIndex = 2;
     let linesCount = 0,
         columnsCount = 0;
     var cols = document.getElementsByClassName('columns');
@@ -136,8 +138,10 @@ function timeout(DATA) {
                 console.log([startIndex, j] + "| Filled");
                 synth.triggerAttackRelease(notes[j], '15n');
             }
+            document.getElementById('bar').style.gridColumnStart = TrackerIndex;
         }
         startIndex++;
+        TrackerIndex++;
         if (startIndex < 15)
             timeout(DATA);
         else {

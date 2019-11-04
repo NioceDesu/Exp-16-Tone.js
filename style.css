@@ -1,20 +1,45 @@
-#cont {
+body {
+    background-color: black;
+    display: grid;
+    grid-template-columns: auto max-content auto;
+    grid-template-rows: 75px max-content 50px max-content max-content auto;
+}
+
+#btnC {
+    color: white;
+    background: none;
+    padding: 10px;
+    font-size: 20px;
+    border: none;
+    border: 2px white solid;
+    border-radius: 999px;
+    grid-column-start: 2;
+    grid-row-start: 2;
+    width: fit-content;
     margin: 0 auto;
+    outline: none;
+    cursor: pointer;
+}
+
+#cont {
+    grid-column-start: 2;
+    grid-row-start: 4;
 }
 
 #innerCont {
-    border: 1px solid black;
+    border: 1px solid white;
     /* width: 500px; */
     width: fit-content;
     padding: 10px;
     margin: 0 auto;
+    border-radius: 5px;
 }
 
 .lines {
     /* border: 1px dashed red; */
     width: auto;
     /* height: 20px; */
-    margin: 10px auto;
+    margin: 15px;
     display: grid;
     grid-auto-columns: auto;
     grid-column-gap: 5px;
@@ -22,7 +47,7 @@
 }
 
 .columns {
-    border: 1px dashed black;
+    border: 1px dashed white;
     grid-row-start: 1;
     width: 25px;
     height: 25px;
@@ -37,9 +62,24 @@
 }
 
 .tones {
-    background-color: black;
+    background-color: white;
     width: 10px;
     height: 10px;
     border-radius: 50%;
     grid-row-start: 2;
     grid-column-start: 2;
+}
+
+#prog {
+    display: grid;
+    grid-column-start: 2;
+    grid-row-start: 5;
+    grid-template-columns: 25px repeat(15, 27px) 25px;
+    grid-column-gap: 5px;
+}
+
+#bar {
+    color: white;
+    text-align: center;
+    grid-column-start: 2;
+}
